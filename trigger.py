@@ -33,23 +33,23 @@ class Trigger:
 parser = argparse.ArgumentParser(
     'Trigger some action after a period of keyboard inactivity')
 parser.add_argument('--timeout', '-t', default=10, type=int,
-                    help='Time in seconds to wait before triggering. The default is 10.')
+                    help='Time in seconds to wait before triggering. Optional, the default is 10.')
 parser.add_argument('--trigger-action', '-a',
-                    help='Program to call when triggering. Must be provided.')
-parser.add_argument('--reset-action', '-r',
-                    help='Program to call when the trigger is reset. Must be provided.')
+                    help='Program to call when triggering. Mandatory.')
+parser.add_argument('--reset-action', '-r', default='exit 0',
+                    help='Program to call when the trigger is reset. Optional.')
 args = parser.parse_args()
 
 if not args.trigger_action:
     print("Trigger action must be provided.")
     exit(1)
 
-if not args.reset_action:
-    print("Reset action must be provided.")
-    exit(2)
-
-dimmer = Trigger(args.timeout, args.trigger_action, args.reset_action)
-keyboard.on_release(lambda keyEvent: dimmer.reset())
-while True:
-    sleep(1)
-    dimmer.try_triggering()
+t = Trigger(args.timeout, args.trigger_action, args.reset_action)
+keyboard.on_release(lambda keyEvent: t.reset())
+try:
+    while True:
+        sleep(1)
+        t.try_triggering()
+except KeyboardInterrupt as e:
+    print('Exiting.')
+    exit(0)
