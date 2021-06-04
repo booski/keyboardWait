@@ -19,7 +19,7 @@ Invoke the script as follows:
 
 The script can also be invoked with the ```--help``` flag, which will provide basic usage instructions.
 
-Both ```trigger-action``` and ``` reset-action``` must be quoted if the contain spaces.
+Both ```trigger-action``` and ``` reset-action``` must be quoted if they contain spaces.
 
 Providing ```reset-action``` is optional, but probably necessary in most cases, unless the ```trigger-action``` can meaningfully run several times in a row.
 
