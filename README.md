@@ -4,6 +4,10 @@ This is a small script to trigger some action based on a user-defined
 period of keyboard inactivity. It must be run as root since it monitors
 the keyboard regardless of focus.
 
+## Dependencies
+
+Depends on the ```keyboard```package. Install with ```pip3 install keyboard``` or similar.
+
 ## Usage
 
 Invoke the script as follows:
